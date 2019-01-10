@@ -1,0 +1,15 @@
+class ClickCount extends React.Component {
+  state = {
+    clicks: 0,
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.setState({ clicks: this.state.clicks + 1 })}>
+          Clicks: {this.state.clicks}
+        </button>
+      </div>
+    );
+  }
+}
