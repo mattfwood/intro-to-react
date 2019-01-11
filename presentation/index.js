@@ -17,8 +17,17 @@ import {
   Appear,
   S,
   Markdown,
-  CodePane
+  CodePane,
+  Layout,
+  Link
 } from 'spectacle';
+
+import {
+  LiveProvider,
+  LiveEditor,
+  LiveError,
+  LivePreview
+} from 'react-live'
 
 // Import theme
 import createTheme from 'spectacle/lib/themes/default';
@@ -97,9 +106,11 @@ export default class Presentation extends React.Component {
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Introduction to React
           </Heading>
-          <Text margin="10px 0 0" textColor="tertiary" fit bold>
-            or "How to Upset Juan"
-          </Text>
+          <Appear>
+            <Text margin="10px 0 0" textColor="tertiary" fit bold>
+              or "How to Upset Juan While He's Out"
+            </Text>
+          </Appear>
         </Slide>
         <Slide bgColor="secondary">
           <Heading size={2} fit lineHeight={1} textColor="primary">
@@ -146,17 +157,119 @@ export default class Presentation extends React.Component {
             </ul>
           </Notes>
         </Slide>
+        <Slide bgColor="tertiary">
+          <Heading size={3} fit lineHeight={1}>Why Use React?</Heading>
+          <List>
+            <Appear>
+              <ListItem textColor="primary">
+                It Makes Views More Consistent
+              </ListItem>
+            </Appear>
+            <Appear>
+              <ListItem textColor="primary">
+                It's backed by companies with huge, performant apps
+              </ListItem>
+            </Appear>
+            <Appear>
+              <ListItem textColor="primary">
+                Once you learn the basics, it's fast and enjoyable to use
+              </ListItem>
+            </Appear>
+          </List>
+          <Notes>
+            - Your HTML and logic live in the same place
+            <br />
+            - React is open source, and created by Facebook. All upcoming versions of React are tested directly by Facebook on their own products
+            <br />
+            - React is also used by Netflix, Instagram, Dropbox, AirBNB, Slack, Reddit, Uber, Twitter, Pinterest
+          </Notes>
+        </Slide>
+        <Slide>
+          <Heading margin="0 0 50px 0" size={5}>Simplest Example</Heading>
+          <CodePane lang="javascript" source={require('raw-loader!../assets/simple.example')} style={{ fontSize: 16 }} />
+          <Notes>
+            - From the React docs themselves, this is the simplest React example to start with
+            <br />
+            - To initially render a React app, you need to target a DOM element and give it a component to render
+            <br />
+            - Here we're using JSX to render basic HTML H1 tags
+          </Notes>
+        </Slide>
+        <Slide>
+          <Heading margin="0 0 50px 0" size={5}>Basic Component</Heading>
+          <LiveProvider code={require('raw-loader!../assets/component.example')}>
+            <LiveEditor />
+            <LiveError />
+            <LivePreview />
+          </LiveProvider>
+          <Notes>
+            - Here we have a basic React component that renders the H3 tag below
+            <br />
+            - Surprise, this presentation was made with React
+            <br />
+            - We're actually using React INSIDE React to render this component, so we can edit it in real time
+            <br />
+          </Notes>
+        </Slide>
+        <Slide bgColor="secondary" align="center flex-start">
+          <Heading margin="50px 0" size={3} fill lineHeight={1} textColor="primary">
+            Adding "State"
+          </Heading>
+          <Appear>
+            <Text margin="50px 0" textColor="primary">
+              State is used to control how your component looks and acts
+            </Text>
+          </Appear>
+          <Appear>
+            <CodePane style={{ fontSize: 16 }} lang="javascript" source={`<Dropdown open={this.state.open} />`} />
+          </Appear>
+          <Appear>
+            <Text margin="50px 0" textColor="primary">
+              By using state to control your UI, you'll never have to this again:
+            </Text>
+          </Appear>
+          <Appear>
+            <CodePane
+              style={{ fontSize: 16 }}
+              lang="javascript"
+              source={
+`var guests = $('#hidden-value-guests').val();
+$('.guests-count').text(value);
+`} />
+          </Appear>
+          <Notes>
+            <ul>
+              <li>State is how we control a component in React</li>
+              <li>Essentially, state is an object that contains all the details about the component</li>
+              <li>For example, you might have a dropdown component that you toggle open and closed with a boolean</li>
+              <li>
+                This isn't just to bash jQuery, but handling state like this is clunky and unreliable
+              </li>
+              <li>
+                It also means that if you wanted to reuse this logic, you'd have to add a second listener with a separate hidden input
+              </li>
+            </ul>
+          </Notes>
+        </Slide>
+        <Slide bgColor="secondary" align="center flex-start">
+          <Text margin="25px 0" textColor="primary">When you change state, it updates how the component looks</Text>
+          <Appear>
+            <LiveProvider code={require('raw-loader!../assets/state.example')}>
+              <LiveEditor style={{ fontSize: 18 }} />
+              <LiveError />
+              <LivePreview />
+            </LiveProvider>
+          </Appear>
+        </Slide>
         <Slide bgColor="primary">
-          <Heading size={4} textColor="secondary">
-            Simple Examples
+          <Heading margin="50px 0" size={4} textColor="secondary">
+            Component Example
           </Heading>
           <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
             <CodePane lang="javascript" source={require('raw-loader!../assets/click.example')} style={{ fontSize: 16 }} />
             <ClickCount />
           </div>
           <Notes>
-            - Surprise, this presentation was made with React
-            <br />
             - This is a simple component that just tracks how many times it's been clicked on.
             <br />
             - One of the great benefits of React is that even if you don't know React, you can probably figure out what's going on  here
@@ -168,51 +281,51 @@ export default class Presentation extends React.Component {
             - You also use curly brackets to indicate when you're using Javascript to escape a value, like using erb tags in Rails
           </Notes>
         </Slide>
-        <Slide bgColor="tertiary">
+        <Slide bgColor="secondary">
           <Heading size={4} textColor="primary" caps>
-            Components
-          </Heading>
-          <CodePane lang="javascript" source={`import React from 'react';`} />
-          <Heading size={1} textColor="secondary">
-            Heading 1
-          </Heading>
-          <Heading size={2} textColor="secondary">
-            Heading 2
-          </Heading>
-          <Heading size={3} textColor="secondary">
-            Heading 3
-          </Heading>
-          <Heading size={4} textColor="secondary">
-            Heading 4
-          </Heading>
-          <Heading size={5} textColor="secondary">
-            Heading 5
-          </Heading>
-          <Text size={6} textColor="secondary">
-            Standard text
-          </Text>
-        </Slide>
-        <Slide bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Standard List
+            Example React Apps
           </Heading>
           <List>
-            <ListItem>Item 1</ListItem>
-            <ListItem>Item 2</ListItem>
-            <ListItem>Item 3</ListItem>
-            <ListItem>Item 4</ListItem>
+            <ListItem>
+              <Link
+                style={{ textDecoration: 'underline' }}
+                textColor="#fff"
+                href="https://flatris.space/"
+              >
+                React Tetris
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link
+                style={{ textDecoration: 'underline' }}
+                textColor="#fff"
+                href="https://spectrum.chat/cratebind"
+              >
+                Spectrum
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link
+                style={{ textDecoration: 'underline' }}
+                textColor="#fff"
+                href="http://ngokevin.github.io/aframe-react-boilerplate/"
+              >
+                Virtual Reality ??
+              </Link>
+            </ListItem>
           </List>
         </Slide>
-        <Slide bgColor="secondary" textColor="primary">
+        <Slide bgColor="tertiary">
+          <Heading size={4} textColor="primary" caps>
+            Working With Rails
+          </Heading>
+        </Slide>
+        {/* <Slide bgColor="secondary" textColor="primary">
           <BlockQuote>
             <Quote>Example Quote</Quote>
             <Cite margin="10px 0 0 30px">Author</Cite>
           </BlockQuote>
-        </Slide>
-        <Slide>
-          {/* <Image src={images.goodWork} width={500} /> */}
-          <Notes>gifs work too</Notes>
-        </Slide>
+        </Slide> */}
       </Deck>
     );
   }

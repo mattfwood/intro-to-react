@@ -1,0 +1,16 @@
+class ButtonColor extends React.Component {
+  constructor() {
+    super()
+    this.state = { color: 'white' }
+  }
+
+  render() {
+    return (
+      <h4
+        style={{ color: this.state.color }}
+      >
+        Hello, React!
+      </h4>
+    )
+  }
+}
