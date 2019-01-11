@@ -1,3 +1,3 @@
 # Intro To React Presentation
 
-## [Live Demo](https://hopeful-jang-d47062.netlify.com/)
+## [Live Demo](https://intro-to-react-presentation.netlify.com/)
